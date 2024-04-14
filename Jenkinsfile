@@ -24,11 +24,11 @@ pipeline {
             steps{
                 sh 'npm test'
             } 
-            post{
-                failure{
-                echo "Send email"
-                }
-            }
+            // post{
+            //     failure{
+            //     echo "Send email"
+            //     }
+            // }
         }
         stage('Deploy-to-Render'){
             steps{
