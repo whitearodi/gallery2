@@ -17,6 +17,11 @@ pipeline {
         stage('test-project'){
             steps{
                 sh 'npm test'
+            } 
+            post{
+                failure{
+                echo "Send email"
+                }
             }
         }
     }
