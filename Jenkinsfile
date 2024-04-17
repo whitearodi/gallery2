@@ -22,7 +22,7 @@ pipeline {
             } 
             post{
                 failure{
-               slackSend(channel: '#yourfirstnameip1', color: 'good',
+               slackSend(channel: '#yourfirstnameip1', color: 'danger',
                                   message: "test failed")
                 }
             }
@@ -33,6 +33,7 @@ pipeline {
                 script{
                      // Install render-cli
                     sh 'curl -O https://github.com/render-oss/render-cli/releases/download/v0.1.11/render-linux-x86_64'
+                    // located within the home directory
                     sh 'chmod +x ~/bin/render'
 
                     // Deploy your application
