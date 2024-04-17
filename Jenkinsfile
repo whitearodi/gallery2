@@ -4,10 +4,6 @@ pipeline {
     }
     agent any
 
-    environment {
-        RENDER_EMAIL = credentials('josepharodi20@gmail.com')
-        RENDER_PASSWORD = credentials('k1t1suru')
-    }
 
     stages{
         stage('clone-repo'){
@@ -24,28 +20,26 @@ pipeline {
             steps{
                 sh 'npm test'
             } 
-            // post{
-            //     failure{
-            //     echo "Send email"
-            //     }
-            // }
+            post{
+                failure{
+               slackSend(channel: '#yourfirstnameip1', color: 'good',
+                                  message: "test failed")
+                }
+            }
         }
-        stage('Deploy-to-Render'){
+        stage('Deploy-to-Render'){  
             steps{
                 //Deployment step
                 script{
-                     // Install renderctl
-                    sh 'curl -O https://render.com/download/renderctl'
-                    sh 'chmod +x renderctl'
-
-                    // Authenticate with Render
-                    sh "./renderctl auth login --email ${RENDER_EMAIL} --password ${RENDER_PASSWORD}"
+                     // Install render-cli
+                    sh 'curl -O https://github.com/render-oss/render-cli/releases/download/v0.1.11/render-linux-x86_64'
+                    sh 'chmod +x ~/bin/render'
 
                     // Deploy your application
-                    sh './renderctl up --name gallery2 --dir https://github.com/whitearodi/gallery2'
+                    // sh 'render blueprint launch'
                 }
-                //Assuming successfull deployment
             }
+            //Assuming successfull deployment
             post{
                 success{
                     script{
