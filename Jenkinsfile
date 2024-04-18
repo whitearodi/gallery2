@@ -37,7 +37,7 @@ pipeline {
                     sh 'chmod +x ~/bin/render'
 
                     // Deploy your application
-                    // sh 'render blueprint launch'
+                    sh 'render blueprint launch'
                 }
             }
             //Assuming successfull deployment
