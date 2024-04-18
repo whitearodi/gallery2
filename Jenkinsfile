@@ -34,14 +34,20 @@ pipeline {
                      // Install render-cli
                     sh 'curl -O https://github.com/render-oss/render-cli/releases/download/v0.1.11/render-linux-x86_64'
     
+                     sh 'ls -l'
+
                     // Create bin directory in the project's root directory
                     sh 'mkdir -p bin'
 
                     //Move render-cli to bin directory 
                      sh 'mv render-linux-x86_64 bin/'
 
+                      sh 'ls -l bin'
+
                      //Ensure executable has permissions 
                     sh 'chmod +x bin/render'
+                    
+                     sh 'ls -l bin'
 
                     // Deploy your application
                     sh 'render blueprint launch'
